@@ -21,11 +21,49 @@ public class MathController {
             return convertToDouble(n1) + convertToDouble(n2);
         }
 
+    @RequestMapping("/sub/{n1}/{n2}")
+    public Double subtraction(
+            @PathVariable("n1") String n1,
+            @PathVariable("n2") String n2
+    ) throws Exception{
+        if(!isNumeric(n1) || !isNumeric(n2)) throw new UnsupportedMathOperationException("Please set a numeric value!");
+        return convertToDouble(n1) - convertToDouble(n2);
+    }
 
+    @RequestMapping("/mult/{n1}/{n2}")
+    public Double multiplication (
+            @PathVariable("n1") String n1,
+            @PathVariable("n2") String n2
+    ) throws Exception{
+        if(!isNumeric(n1) || !isNumeric(n2)) throw new UnsupportedMathOperationException("Please set a numeric value!");
+        return convertToDouble(n1) * convertToDouble(n2);
+    }
 
+    @RequestMapping("/div/{n1}/{n2}")
+    public Double Division(
+            @PathVariable("n1") String n1,
+            @PathVariable("n2") String n2
+    ) throws Exception{
+        if(!isNumeric(n1) || !isNumeric(n2)) throw new UnsupportedMathOperationException("Please set a Numeric value!");
+        return convertToDouble(n1) / convertToDouble(n2);
+    }
 
+    @RequestMapping("/mean/{n1}/{n2}")
+    public Double mean(
+            @PathVariable("n1") String n1,
+            @PathVariable("n2") String n2
+    ) throws Exception{
+        if(!isNumeric(n1) || !isNumeric(n2)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return (convertToDouble(n1) + convertToDouble(n2)) / 2;
+    }
 
-
+    @RequestMapping("/raiz/{n1}")
+    public Double raiz(
+            @PathVariable("n1") String n1
+    ) throws Exception{
+        if(!isNumeric(n1)) throw new UnsupportedMathOperationException("Please set a numeric value");
+        return Math.pow(convertToDouble(n1), 0.5);
+    }
 
 
     private Double convertToDouble(String strNumber) throws IllegalAccessException {
