@@ -1,6 +1,7 @@
 package br.com.erudio.controller;
 
 
+import br.com.erudio.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +17,19 @@ public class MathController {
                 @PathVariable("n1") String n1,
                 @PathVariable("n2") String n2
         ) throws Exception{
-            if(!isNumeric(n1) || !isNumeric(n2)) throw new IllegalAccessException();
+            if(!isNumeric(n1) || !isNumeric(n2)) throw new UnsupportedMathOperationException("Please set a numeric value!");
             return convertToDouble(n1) + convertToDouble(n2);
         }
 
+
+
+
+
+
+
+
     private Double convertToDouble(String strNumber) throws IllegalAccessException {
-        if(strNumber == null || strNumber.isEmpty()) throw new IllegalAccessException();
+        if(strNumber == null || strNumber.isEmpty()) throw new UnsupportedMathOperationException("Please set a numeric value!");
         String number = strNumber.replace(",",".");
         return Double.parseDouble(number); //Metodo para trasformar String pra Double
     }
@@ -34,7 +42,7 @@ public class MathController {
             //que iram de 0 á 9, poderam ser separados por "." e os proximos numeros também serão de 0 á 9
 
             return number.matches("[-+]?[0-9]*\\.?[0-9]+");
-        }
+    }
 
     // http://localhost:8080/math/subtraction/3/5
     // http://localhost:8080/math/division/3/5
